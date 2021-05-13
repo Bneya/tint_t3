@@ -1,5 +1,5 @@
 import { socket } from '../config/constants';
-import React, { useState, useEffect, useCallback, createRef } from "react";
+import React, { useState, useEffect, createRef } from "react";
 
 
 export default function Chat() {
