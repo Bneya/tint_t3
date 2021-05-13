@@ -1,32 +1,45 @@
-import { API_URL } from '../config/constants';
-import React, { useState, useEffect } from "react";
-import socketIOClient from "socket.io-client";
+import { socket } from '../config/constants';
+import React, { useState, useEffect, useCallback, createRef } from "react";
+
 
 export default function Chat() {
   // js code
   // const socket = io(API_URL, { path: '/flights' })
 
 
-  const [response, setResponse] = useState([]);  // Hook
+  const [message, setMessage] = useState([]);  // Hook
+  let chatInput = createRef();
 
   useEffect(() => {
-    const socket = socketIOClient(API_URL, { path: '/flights' });
-    socket.on("POSITION", data => {
+    socket.on("CHAT", data => {
       console.log('data', data);
-      // const array1 = [];
-      // array1.push(data)
-      setResponse(data);
+      setMessage(data);
     });
-
     // Desconectar websocket
     return () => socket.disconnect();
-
   }, []);
+
+  // Enviar mensaje
+  const fetchRequest = (e) => {
+       // Api request here
+       console.log('llamando a la función con un botón. currText:', chatInput.current.value);
+
+       // Enviar mensaje al socket
+       const msgToSend = {
+         name: 'juanitoharcodeado',
+         message: chatInput.current.value,
+       }
+       socket.emit('CHAT', msgToSend);
+
+       // Limpiar el mensaje del chat
+       chatInput.current.value = "";
+   }
 
   return(
     <div>
-      <div>El API_URL es {API_URL}</div>
-      {/* <div>el código es: {response.code}</div> */}
+      <div>el mensaje es: {message.name}, {message.date}, {message.message}</div>
+      <input ref={chatInput} />
+      <input type="button" onClick={fetchRequest} value="Enviar"/>
     </div>
   )
 }
