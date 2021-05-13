@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import logo from '../assets/logo.svg';
+import Chat from '../components/chat';
 
 export default function MainMap() {
   // javascript code
@@ -20,6 +21,7 @@ export default function MainMap() {
           Learn React
         </a>
       </header>
+      <Chat />
     </div>
   )
 }
