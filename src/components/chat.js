@@ -7,20 +7,26 @@ export default function Chat() {
   // const socket = io(API_URL, { path: '/flights' })
 
 
-  const [response, setResponse] = useState("");  // Hook
+  const [response, setResponse] = useState([]);  // Hook
 
   useEffect(() => {
     const socket = socketIOClient(API_URL, { path: '/flights' });
-    socket.on("FromAPI", data => {
+    socket.on("POSITION", data => {
       console.log('data', data);
+      // const array1 = [];
+      // array1.push(data)
       setResponse(data);
     });
+
+    // Desconectar websocket
+    return () => socket.disconnect();
+
   }, []);
 
   return(
     <div>
       <div>El API_URL es {API_URL}</div>
-      <div>{response}</div>
+      {/* <div>el código es: {response.code}</div> */}
     </div>
   )
 }
