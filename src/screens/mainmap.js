@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../assets/logo.svg';
 import Chat from '../components/chat';
+import FlightsInfo from '../components/flightsinfo';
 
 export default function MainMap() {
   // javascript code
@@ -22,6 +23,7 @@ export default function MainMap() {
         </a>
       </header>
       <Chat />
+      <FlightsInfo />
     </div>
   )
 }
