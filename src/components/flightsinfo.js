@@ -1,5 +1,5 @@
 import { socket } from '../config/constants';
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect } from "react";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup'
 
@@ -7,7 +7,6 @@ import ListGroup from 'react-bootstrap/ListGroup'
 export default function FlightsInfo() {
 
   const [finfo, setfinfo] = useState([]);
-  const [show, toggleShow] = useState(true);
 
   // Hook para actualizar estado, escucha el evento FLIGHTS
   useEffect(() => {
@@ -20,11 +19,9 @@ export default function FlightsInfo() {
   }, []);
 
   const getFinfo = (e) => {
-    // console.log('llamando a getFinfo, el <e> es:', e);
 
     // Enviamos al socket la solicitud para que me mande Info
-    const hola = socket.emit('FLIGHTS');
-    // console.log('el hola es', hola);
+    socket.emit('FLIGHTS');
   }
 
   return(
