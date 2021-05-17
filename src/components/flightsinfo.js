@@ -1,5 +1,8 @@
 import { socket } from '../config/constants';
 import React, { useState, useEffect } from "react";
+
+import Map from './map';
+
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup'
 
@@ -28,6 +31,7 @@ export default function FlightsInfo() {
     <div>
       <div>Flights Info</div>
       <input type="button" onClick={getFinfo} value="Obtener info de vuelos"/>
+      <Map hola='hola' adios='adios'/>
 
       {finfo.map((f) => {
 
