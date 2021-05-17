@@ -33,17 +33,27 @@ export default function FlightsInfo() {
 
 
         return (
-          <Card key={f.code}>
+          <Card
+            key={f.code}
+            bg='info'
+          >
             <Card.Body>
               <Card.Title>Vuelo {f.code}</Card.Title>
             </Card.Body>
-            <ListGroup className="list-group-flush">
-              <ListGroup.Item>Aerolínea: {f.airline}</ListGroup.Item>
-              <ListGroup.Item>Coordenadas origen: [{f.origin[0]}, {f.origin[1]}]</ListGroup.Item>
-              <ListGroup.Item>Coordenadas destino: [{f.destination[0]}, {f.destination[1]}]</ListGroup.Item>
-              <ListGroup.Item>Modelo avión: {f.plane}</ListGroup.Item>
-              <ListGroup.Item>Cantidad asientos: {f.seats}</ListGroup.Item>
-              <ListGroup.Item>Pasajeros...</ListGroup.Item>
+            <ListGroup className="flush">
+              <ListGroup.Item variant='info'>Aerolínea: {f.airline}</ListGroup.Item>
+              <ListGroup.Item variant='info'>Coordenadas origen: [{f.origin[0]}, {f.origin[1]}]</ListGroup.Item>
+              <ListGroup.Item variant='info'>Coordenadas destino: [{f.destination[0]}, {f.destination[1]}]</ListGroup.Item>
+              <ListGroup.Item variant='info'>Modelo avión: {f.plane}</ListGroup.Item>
+              <ListGroup.Item variant='info'>Cantidad asientos: {f.seats}</ListGroup.Item>
+              <ListGroup.Item variant='info'>Pasajeros:
+                <ListGroup className="flush">
+                {f.passengers.map((pas) => {
+                  return(<ListGroup.Item key={pas.name + pas.age}>Nombre: {pas.name}, edad: {pas.age}</ListGroup.Item>)
+                })}
+                </ListGroup>
+              </ListGroup.Item>
+
             </ListGroup>
           </Card>
         )
