@@ -2,7 +2,7 @@ import { socket } from '../config/constants';
 import React, { useState, useEffect } from "react";
 
 // Cosas del mapa
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, Tooltip } from 'react-leaflet'
 
 // Función utilitaria para armar polylines
 function formPolylines(finfo) {
@@ -14,11 +14,31 @@ function formPolylines(finfo) {
 }
 
 export default function Map(props) {
-  // console.log('props', props);
-  const { finfo } = props;
-  console.log('finfo', finfo); 
 
+  // Hooks
+  const [vuelosPos, setVuelosPos] = useState({});
+  
+  // Obtener lineas de trayectorias teóricas
+  const { finfo } = props;
   const polylines = formPolylines(finfo);
+
+  // Hook para actualizar posiciones y líneas según eventos del socket
+  useEffect(()=> {
+    socket.on('POSITION', data => {
+      //if (!(data.code in vuelosPos)) {
+        const { code, position } = data;
+        console.log('code, position', code, position)
+        setVuelosPos(oldObj => ({ ...oldObj, [code]: position}))
+      //}
+      console.log(vuelosPos);
+    });
+
+
+    // Desconectar websocket
+    return () => socket.disconnect();
+  }, [])
+
+
   const limeOptions = { color: 'lime' }
 
   return (
@@ -37,7 +57,21 @@ export default function Map(props) {
 
         <Polyline pathOptions={limeOptions} positions={polylines} />
 
+        {Object.entries(vuelosPos).map((vuelo) => {
+
+          return(
+            <Circle
+              radius={800}
+              center={vuelo[1]}
+            >
+              <Tooltip>{vuelo[0]}</Tooltip>
+            </Circle>
+          )
+
+        })}
+
       </MapContainer>
+
     </div>
   )
 }
