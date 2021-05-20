@@ -2,7 +2,7 @@ import { socket } from '../config/constants';
 import React, { useState, useEffect } from "react";
 
 // Cosas del mapa
-import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, Tooltip } from 'react-leaflet'
+import { MapContainer, TileLayer, Polyline, Circle, Tooltip } from 'react-leaflet'
 
 // Función utilitaria para armar polylines
 function formPolylines(finfo) {
@@ -61,11 +61,6 @@ export default function Map(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
 
         <Polyline pathOptions={limeOptions} positions={polylines} />
         <Polyline pathOptions={purpleOptions} positions={polyTracks} />
@@ -74,6 +69,7 @@ export default function Map(props) {
 
           return(
             <Circle
+              key={vuelo[0]}
               radius={800}
               center={vuelo[1]}
             >
