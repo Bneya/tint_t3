@@ -8,15 +8,21 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, Tooltip } fro
 function formPolylines(finfo) {
 
   const polylines = finfo.map(f => [f.origin, f.destination]);
-
-  console.log('polylines', polylines);
   return polylines;
+}
+
+// Función utilitaria que arma las polylines de tracks
+function formPolyTracks(vuelosTracks) {
+
+  const polyTracks = Object.values(vuelosTracks);
+  return polyTracks;
 }
 
 export default function Map(props) {
 
   // Hooks
   const [vuelosPos, setVuelosPos] = useState({});
+  const [vuelosTracks, setVuelosTracks] = useState({});
   
   // Obtener lineas de trayectorias teóricas
   const { finfo } = props;
@@ -25,12 +31,14 @@ export default function Map(props) {
   // Hook para actualizar posiciones y líneas según eventos del socket
   useEffect(()=> {
     socket.on('POSITION', data => {
-      //if (!(data.code in vuelosPos)) {
-        const { code, position } = data;
-        console.log('code, position', code, position)
-        setVuelosPos(oldObj => ({ ...oldObj, [code]: position}))
-      //}
-      console.log(vuelosPos);
+      const { code, position } = data;
+      // console.log('code, position', code, position)
+      setVuelosPos(oldObj => ({ ...oldObj, [code]: position}))
+      
+      setVuelosTracks(oldObj => ({
+        ...oldObj,
+        [code]: ( code in oldObj ? oldObj[code].concat([position]) : [position] ) 
+      }))
     });
 
 
@@ -40,6 +48,10 @@ export default function Map(props) {
 
 
   const limeOptions = { color: 'lime' }
+  const purpleOptions = { color: 'purple' }
+
+  // console.log('vuelosTracks', vuelosTracks);
+  const polyTracks = formPolyTracks(vuelosTracks);
 
   return (
     <div>
@@ -56,6 +68,7 @@ export default function Map(props) {
         </Marker>
 
         <Polyline pathOptions={limeOptions} positions={polylines} />
+        <Polyline pathOptions={purpleOptions} positions={polyTracks} />
 
         {Object.entries(vuelosPos).map((vuelo) => {
 
