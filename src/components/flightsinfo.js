@@ -29,9 +29,9 @@ export default function FlightsInfo() {
 
   return(
     <div>
+      <Map hola='hola' adios='adios'/>
       <div>Flights Info</div>
       <input type="button" onClick={getFinfo} value="Obtener info de vuelos"/>
-      <Map hola='hola' adios='adios'/>
 
       {finfo.map((f) => {
 

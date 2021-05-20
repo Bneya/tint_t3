@@ -47,6 +47,7 @@ export default function Chat() {
         return(
 
           <MessageBox
+            key={msg.date}
             text={msg.message}
             title={msg.name}
             dateString={date}
