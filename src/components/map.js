@@ -54,8 +54,8 @@ export default function Map(props) {
   const polyTracks = formPolyTracks(vuelosTracks);
 
   return (
-    <div>
-      <div>Acá va el mapa</div>
+    <div style={{ 'overflow-y': 'scroll', flex: 1 }}>
+      <div>Mapa de vuelos "En vivo"</div>
       <MapContainer center={[51.505, -0.09]} zoom={1} scrollWheelZoom={false} style={{ height: '400px' }}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
