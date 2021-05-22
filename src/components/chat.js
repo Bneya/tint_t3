@@ -40,7 +40,7 @@ export default function Chat() {
    }
 
   return(
-    <div>
+    <div className='center-col'>
       {messages.map((msg) => {
         const dateraw = new Date(msg.date);
         const date = `${dateraw.getHours()}:${dateraw.getMinutes()}`;

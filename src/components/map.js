@@ -54,7 +54,7 @@ export default function Map(props) {
   const polyTracks = formPolyTracks(vuelosTracks);
 
   return (
-    <div style={{ 'overflow-y': 'scroll', flex: 1 }}>
+    <div>
       <div>Mapa de vuelos "En vivo"</div>
       <MapContainer center={[51.505, -0.09]} zoom={1} scrollWheelZoom={false} style={{ height: '400px' }}>
         <TileLayer

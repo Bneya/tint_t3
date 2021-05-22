@@ -16,7 +16,7 @@ export default function MainMap() {
       <Container>
         <Row>
           <Col xs={9}> <FlightsInfo /> </Col>
-          <Col> <Chat /> </Col>
+          <Col className='container-sp'> <Chat /> </Col>
         </Row>
       </Container>
       
