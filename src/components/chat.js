@@ -57,7 +57,7 @@ export default function Chat() {
 
       Nickame
       <input ref={nickname} defaultValue="Piloto desconocido"/>
-      <input ref={chatInput} />
+      <input ref={chatInput} placeholder='Escribe tu mensaje...'/>
       <input type="button" onClick={sendMsg} value="Enviar"/>
     </div>
   )
