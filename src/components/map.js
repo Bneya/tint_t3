@@ -65,6 +65,22 @@ export default function Map(props) {
         <Polyline pathOptions={limeOptions} positions={polylines} />
         <Polyline pathOptions={purpleOptions} positions={polyTracks} />
 
+        {polylines.map((f) => {
+          return(
+            <Circle key={f[0][0] + f[0][1]} radius={1600} center={f[0]} pathOptions={limeOptions}>
+              <Tooltip>Inicio</Tooltip>
+            </Circle>
+          )
+        })}
+
+        {polylines.map((f) => {
+          return(
+            <Circle key={f[1][0] + f[1][1]} radius={1600} center={f[1]} pathOptions={limeOptions}>
+              <Tooltip>Final</Tooltip>
+            </Circle>
+          )
+        })}
+
         {Object.entries(vuelosPos).map((vuelo) => {
 
           return(
